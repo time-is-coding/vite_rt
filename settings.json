@@ -1,0 +1,75 @@
+{
+  // "editor.codeActionsOnSave": {
+  //   "source.fixAll.eslint": true
+  // },
+  "workbench.list.horizontalScrolling": true,
+  "eslint.autoFixOnSave": true,
+  "editor.formatOnSave": true,
+  "editor.quickSuggestions": {
+    //开启自动显示建议
+    "other": true,
+    "comments": true,
+    "strings": true
+  },
+  "editor.detectIndentation": false,
+  "editor.tabSize": 2,
+  "vetur.format.options.tabSize": 2,
+  "explorer.confirmDelete": false,
+  "liveServer.settings.donotShowInfoMsg": true,
+  "explorer.confirmDragAndDrop": false,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "search.followSymlinks": false,
+  "window.autoDetectColorScheme": true,
+  "workbench.colorTheme": "One Dark Pro",
+  // "[vue]": {
+  //   "editor.defaultFormatter": "esbenp.prettier-vscode"
+  // },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "prettier.trailingComma": "none",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "window.zoomLevel": -1,
+  "eslint.format.enable": true,
+  // "cSpell.userWords": [
+  //   "addcontent",
+  //   "antd",
+  //   "antv",
+  //   "btns",
+  //   "datasetid",
+  //   "erweima",
+  //   "giengraph",
+  //   "grahpic",
+  //   "Graphin",
+  //   "GROUPOPTIONS",
+  //   "hexcolor",
+  //   "Hoverable",
+  //   "iconfont",
+  //   "jsplumb",
+  //   "keyshape",
+  //   "kgbuilder",
+  //   "Navitem",
+  //   "NODECOUNT",
+  //   "onsize",
+  //   "pagetype",
+  //   "Popconfirm",
+  //   "Primarykey",
+  //   "Realtion",
+  //   "relationtext",
+  //   "shortkey",
+  //   "Sidenav",
+  //   "tailwindcss",
+  //   "Ueditor",
+  //   "vuex",
+  //   "Weixin"
+  // ],
+  "git.confirmSync": false,
+  "diffEditor.renderSideBySide": false,
+  "terminal.integrated.defaultProfile.windows": "Git Bash",
+  "security.workspace.trust.untrustedFiles": "open",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": false
+  },
+  "editor.inlineSuggest.enabled": true,
+  "editor.mouseWheelZoom": true
+}
