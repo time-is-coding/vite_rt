@@ -1,9 +1,5 @@
 {
-  // "editor.codeActionsOnSave": {
-  //   "source.fixAll.eslint": true
-  // },
   "workbench.list.horizontalScrolling": true,
-  "eslint.autoFixOnSave": true,
   "editor.formatOnSave": true,
   "editor.quickSuggestions": {
     //开启自动显示建议
@@ -13,14 +9,13 @@
   },
   "editor.detectIndentation": false,
   "editor.tabSize": 2,
-  "vetur.format.options.tabSize": 2,
   "explorer.confirmDelete": false,
   "liveServer.settings.donotShowInfoMsg": true,
   "explorer.confirmDragAndDrop": false,
   "javascript.updateImportsOnFileMove.enabled": "always",
   "search.followSymlinks": false,
   "window.autoDetectColorScheme": true,
-  "workbench.colorTheme": "One Dark Pro",
+  // "workbench.colorTheme": "One Dark Pro",
   // "[vue]": {
   //   "editor.defaultFormatter": "esbenp.prettier-vscode"
   // },
@@ -29,7 +24,7 @@
   },
   "prettier.trailingComma": "none",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "window.zoomLevel": -1,
+  "window.zoomLevel": 0,
   "eslint.format.enable": true,
   // "cSpell.userWords": [
   //   "addcontent",
@@ -68,7 +63,10 @@
   "terminal.integrated.defaultProfile.windows": "Git Bash",
   "security.workspace.trust.untrustedFiles": "open",
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": false
+    "editor.formatOnSave": "always",
+    "source.organizeImports": "always",
+    "source.sortImports": "always",
+    "source.fixAll": "always"
   },
   "editor.inlineSuggest.enabled": true,
   "editor.mouseWheelZoom": true
