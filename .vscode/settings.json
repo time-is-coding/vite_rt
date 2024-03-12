@@ -1,4 +1,5 @@
 {
+  //允许在工作台的列表（如文件树）中进行水平滚动。
   "workbench.list.horizontalScrolling": true,
   "editor.formatOnSave": true,
   "editor.quickSuggestions": {
@@ -7,7 +8,8 @@
     "comments": true,
     "strings": true
   },
-  "editor.detectIndentation": false,
+  //禁用自动检测文件缩进
+  "editor.detectIndentation": true,
   "editor.tabSize": 2,
   "explorer.confirmDelete": false,
   "liveServer.settings.donotShowInfoMsg": true,
@@ -19,7 +21,10 @@
   // "[vue]": {
   //   "editor.defaultFormatter": "esbenp.prettier-vscode"
   // },
-  "[javascript]": {
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "prettier.trailingComma": "none",
