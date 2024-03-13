@@ -1,3 +1,4 @@
+import Dashboard from '@/pages/dashboard';
 import DocsPage from '@/pages/docs';
 
 //入口页面不用lazy，其他页面可以使用lazy
@@ -7,6 +8,12 @@ const routes = [
     meta: {
       title: 'gientech',
     },
+    index: true,
+  },
+  {
+    path: '/dashboard',
+    name: '控制台',
+    element: <Dashboard />,
   },
   {
     path: '/docs',

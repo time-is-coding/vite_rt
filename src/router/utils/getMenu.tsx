@@ -28,9 +28,7 @@ const generateMenu = (routes: any[]): any[] => {
   routes.forEach((route) => {
     // 当前路由有menuConfig
     if (route.menuConfig) {
-      const children = route.children
-        ? generateMenu(route.children)
-        : undefined;
+      const children = route.children ? generateMenu(route.children) : undefined;
       result.push(
         getItem(
           route.menuConfig.label,
@@ -43,9 +41,7 @@ const generateMenu = (routes: any[]): any[] => {
       );
     } else if (route.children) {
       // 当前路由没有menuConfig，但是子路由有
-      const childrenWithMenuConfig = route.children.filter(
-        (r: any) => r.menuConfig
-      );
+      const childrenWithMenuConfig = route.children.filter((r: any) => r.menuConfig);
       if (childrenWithMenuConfig.length) {
         const subMenu = generateMenu(route.children);
         if (subMenu.length) {
@@ -57,4 +53,4 @@ const generateMenu = (routes: any[]): any[] => {
   return result;
 };
 
-export { getMenuData, generateMenu };
+export { generateMenu, getMenuData };

@@ -1,8 +1,8 @@
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
 import App from './App';
-// import { Provider } from 'react-redux';
-// import { store } from './storage/state';
 import './index.css';
+import { store } from './storage/state';
 // import 'virtual:svg-icons-register';
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 // import '@/assets/fontCss/iconfont.css';
@@ -16,9 +16,9 @@ import './index.css';
 // });
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  // <Provider store={store}>
-  //   <QueryClientProvider client={queryClient}>
-  <App />
-  //   </QueryClientProvider>
-  // </Provider>
+  <Provider store={store}>
+    {/* <QueryClientProvider client={queryClient}> */}
+    <App />
+    {/* </QueryClientProvider> */}
+  </Provider>
 );

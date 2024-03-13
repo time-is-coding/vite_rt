@@ -1,11 +1,15 @@
-import DocsLayout from './layout';
+import Navbar from '@/gientech/components/Navbar';
+import DashboardLayout from '@/gientech/layouts/Dashboard';
 import Guideline from './guideLine.mdx';
+import DocsLayout from './layout';
 
 function DocsPage() {
   return (
-    <DocsLayout>
-      <Guideline />
-    </DocsLayout>
+    <DashboardLayout HeaderNavBar={<Navbar />}>
+      <DocsLayout>
+        <Guideline />
+      </DocsLayout>
+    </DashboardLayout>
   );
 }
 

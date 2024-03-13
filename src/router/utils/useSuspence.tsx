@@ -1,5 +1,17 @@
 import { Suspense } from 'react';
 
-export default (el: React.ReactNode) => {
-  return <Suspense fallback={<div>loading</div>}>{el}</Suspense>;
+const useSuspence = (el: React.ReactNode) => {
+  return (
+    <Suspense
+      fallback={
+        <div className="w-full h-full flex justify-center items-center">
+          {/* loading........ */}
+        </div>
+      }
+    >
+      {el}
+    </Suspense>
+  );
 };
+
+export default useSuspence;
