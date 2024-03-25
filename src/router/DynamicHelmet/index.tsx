@@ -5,18 +5,13 @@ import routes from '@/router/routes';
 import React from 'react';
 
 // Helper function to find the matched route for nested routes
-function findRoute(
-  routes: RouteItem[],
-  pathname: string
-): RouteItem | undefined {
+function findRoute(routes: RouteItem[], pathname: string): RouteItem | undefined {
   for (const route of routes) {
     if (pathname.startsWith(route.path)) {
       if (pathname === route.path) {
         return route;
       } else {
-        const nestedPath = pathname
-          .slice(route.path.length)
-          .replace(/^\/+/, '');
+        const nestedPath = pathname.slice(route.path.length).replace(/^\/+/, '');
         if (route.children) return findRoute(route.children, nestedPath);
       }
     }

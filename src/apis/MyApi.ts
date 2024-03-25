@@ -1,5 +1,5 @@
-import { BodyCreateUserUserPost, HTTPValidationError } from "./data-contracts";
-import { ContentType, HttpClient, RequestParams } from "./http-client";
+import { BodyCreateUserUserPost, HTTPValidationError } from './data-contracts';
+import { ContentType, HttpClient, RequestParams } from './http-client';
 
 export class MyApi<SecurityDataType = unknown> {
   http: HttpClient<SecurityDataType>;
@@ -21,8 +21,8 @@ export class MyApi<SecurityDataType = unknown> {
   readUserUserUserIdGet = (userId: number, params: RequestParams = {}) =>
     this.http.request<any, HTTPValidationError>({
       path: `/user/${userId}`,
-      method: "GET",
-      format: "json",
+      method: 'GET',
+      format: 'json',
       ...params,
     });
   /**
@@ -38,8 +38,8 @@ export class MyApi<SecurityDataType = unknown> {
   deleteUserUserUserIdDelete = (userId: number, params: RequestParams = {}) =>
     this.http.request<any, HTTPValidationError>({
       path: `/user/${userId}`,
-      method: "DELETE",
-      format: "json",
+      method: 'DELETE',
+      format: 'json',
       ...params,
     });
   /**
@@ -55,10 +55,10 @@ export class MyApi<SecurityDataType = unknown> {
   createUserUserPost = (data: BodyCreateUserUserPost, params: RequestParams = {}) =>
     this.http.request<any, HTTPValidationError>({
       path: `/user/`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -73,8 +73,8 @@ export class MyApi<SecurityDataType = unknown> {
   getAllUserListUserContactsGet = (params: RequestParams = {}) =>
     this.http.request<any, any>({
       path: `/user/contacts/`,
-      method: "GET",
-      format: "json",
+      method: 'GET',
+      format: 'json',
       ...params,
     });
   /**
@@ -89,8 +89,8 @@ export class MyApi<SecurityDataType = unknown> {
   updateContactUserContactsEmailGet = (email: string, params: RequestParams = {}) =>
     this.http.request<any, any>({
       path: `/user/contacts/${email}`,
-      method: "GET",
-      format: "json",
+      method: 'GET',
+      format: 'json',
       ...params,
     });
 }

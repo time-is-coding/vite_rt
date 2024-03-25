@@ -1,9 +1,6 @@
-import {  useCookieState } from 'ahooks';
+import { useCookieState } from 'ahooks';
 import useStorage from './useStorage';
 
-const useCookie =useCookieState
+const useCookie = useCookieState;
 
-export {
-  useStorage,
-  useCookie,
-}
+export { useStorage, useCookie };
