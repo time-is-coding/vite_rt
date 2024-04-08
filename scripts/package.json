@@ -1,10 +1,11 @@
 {
   "name": "scripts",
+  "type": "module",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "api": "ts-node apiGenerator/index.ts"
+    "api": "node --loader ts-node/esm apiGenerator/index.ts"
   },
   "devDependencies": {
     "@types/node": "^20.11.25",

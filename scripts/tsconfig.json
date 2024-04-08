@@ -2,16 +2,12 @@
   "compilerOptions": {
     // other compiler options...
     "esModuleInterop": true,
-    "module": "CommonJS", // "module": "CommonJS" should work too
+    "module": "ESNext", // "module": "CommonJS" should work too
     "moduleResolution": "Node",
-    "resolveJsonModule":true
+    "resolveJsonModule": true
   },
-  "include": [
-    "./**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ],
+  "include": ["./**/*.ts"],
+  "exclude": ["node_modules"],
   "ts-node": {
     "esm": true,
     "experimentalSpecifierResolution": "node"
