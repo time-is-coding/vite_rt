@@ -10,7 +10,7 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
     "preview": "vite preview",
     "test": "vitest",
-    "gen:api": "cd scripts && ts-node apiGenerator/index.ts"
+    "gen:api": "ts-node -P scripts/tsconfig.json scripts/apiGenerator/index.ts"
   },
   "dependencies": {
     "@mdxeditor/editor": "^2.12.1",
@@ -31,7 +31,8 @@
     "react-redux": "^8.1.1",
     "react-router-dom": "^6.22.2",
     "react-router-middleware-plus": "^1.4.1",
-    "redux": "^4.2.0"
+    "redux": "^4.2.0",
+    "styled-components": "^6.1.8"
   },
   "devDependencies": {
     "@mdx-js/rollup": "^3.0.1",
