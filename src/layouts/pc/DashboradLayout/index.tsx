@@ -1,7 +1,7 @@
-import yqLogo from '@/assets/images/logo.png';
-import { ConfigProvider, Divider, Flex, Typography } from 'antd';
+import { ConfigProvider, Divider, Layout, Space, Typography, theme } from 'antd';
+const { Header, Sider, Content } = Layout;
 
-import { ReactNode, useMemo } from 'react';
+import { ReactNode, useState } from 'react';
 const { Title } = Typography;
 interface IStyle {
   navHeight: number;
@@ -9,91 +9,83 @@ interface IStyle {
   bgColor: string;
   sidenavWidth: number;
 }
-interface ISideBar {
-  state: 'full' | 'mini' | 'hide';
-  data: any;
-}
 interface IProps {
   children?: ReactNode;
   classname?: string;
-  navMenu?: any;
-  logo?: any;
+  navMenu?: ReactNode[];
+  logo?: string;
   brandName?: string;
-  sidebar?: ISideBar;
+  sidebar?: any;
   mode?: 'dark' | 'light';
   style?: IStyle;
   searchBar?: ReactNode;
+  rightInfo?: ReactNode[];
 }
 
 function DashboradLayout(props: IProps) {
-  const { mode = 'light', children, brandName = '' } = props;
+  const { children, brandName = '', navMenu = [], logo, rightInfo = [], sidebar } = props;
 
-  const initialStyle: IStyle = useMemo(
-    () => ({
-      navHeight: props.style?.navHeight || 60,
-      themeColor:
-        mode === 'light' ? props.style?.bgColor || '#04336B' : props.style?.bgColor || '#0F172A',
-      sidenavWidth: props.style?.sidenavWidth || 200,
-      bgColor:
-        mode === 'light' ? props.style?.bgColor || '#F6F6F6' : props.style?.bgColor || '#060C1B',
-    }),
-    [props.style, mode]
-  );
+  const [collapsed, setCollapsed] = useState(false);
+
+  const {
+    token: { colorBgContainer, padding },
+  } = theme.useToken();
 
   return (
     <ConfigProvider
       theme={{
-        // cssVar: true,
         components: {
           Typography: {
             titleMarginBottom: 0,
             titleMarginTop: 0,
+            colorTextHeading: '#fff',
+            fontWeightStrong: 400,
           },
-        },
-        token: {
-          colorText: '#232111',
+          Divider: {
+            colorSplit: '#fff',
+          },
         },
       }}
     >
-      <Flex
+      <Layout
         className="!font-sans"
         style={{
-          position: 'fixed',
-          margin: '0 0 0 0',
-          padding: '0 0 0 0',
-          width: '100%',
-          height: '100%',
-          backgroundColor: mode === 'dark' ? 'black' : 'white', // 根据主题动态设置背景颜色
+          minHeight: '100vh',
+          minWidth: '1200px',
         }}
       >
-        <Flex vertical className="h-full min-w-[1200px] w-full flex-col">
-          <header
-            className="flex px-[20px] items-center justify-between"
+        <Header className="flex px-[20px] items-center justify-between">
+          <div className="left flex items-center justify-start">
+            <img src={logo} alt="" />
+            <Divider type="vertical" />
+            <Title level={4} className="m-0 mr-4">
+              {brandName}
+            </Title>
+            <Space>{navMenu.map((i) => i)}</Space>
+          </div>
+          <div className="right flex items-center justify-start">
+            <Space>{rightInfo.map((i) => i)}</Space>
+          </div>
+        </Header>
+        <Layout>
+          <Sider
+            style={{ background: colorBgContainer }}
+            collapsible
+            collapsed={collapsed}
+            onCollapse={(value) => setCollapsed(value)}
+          >
+            {sidebar}
+          </Sider>
+          <Content
             style={{
-              height: `${initialStyle.navHeight}px`,
-              backgroundColor: initialStyle.themeColor,
+              padding: padding,
+              minHeight: 280,
             }}
           >
-            <div className="left flex items-center justify-start">
-              <img src={yqLogo} alt="" />
-              <Divider />
-              <Title level={4} className="m-0 ml">
-                {brandName}
-              </Title>
-            </div>
-          </header>
-          <section
-            style={{
-              display: 'flex',
-              height: `calc(100vh - ${initialStyle.navHeight}px)`,
-              backgroundColor: initialStyle.bgColor,
-            }}
-          >
-            <div className={`w-[${initialStyle.sidenavWidth}px]`}>sideMenu</div>
-            <div>{children}</div>
-          </section>
-        </Flex>
-      </Flex>
+            {children}
+          </Content>
+        </Layout>
+      </Layout>
     </ConfigProvider>
   );
 }
