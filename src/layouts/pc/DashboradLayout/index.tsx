@@ -1,4 +1,5 @@
-import { ConfigProvider, Flex, Typography } from 'antd';
+import yqLogo from '@/assets/images/logo.png';
+import { ConfigProvider, Divider, Flex, Typography } from 'antd';
 
 import { ReactNode, useMemo } from 'react';
 const { Title } = Typography;
@@ -25,7 +26,7 @@ interface IProps {
 }
 
 function DashboradLayout(props: IProps) {
-  const { mode = 'light' } = props;
+  const { mode = 'light', children, brandName = '' } = props;
 
   const initialStyle: IStyle = useMemo(
     () => ({
@@ -50,7 +51,7 @@ function DashboradLayout(props: IProps) {
           },
         },
         token: {
-          colorText: '#23211',
+          colorText: '#232111',
         },
       }}
     >
@@ -74,7 +75,11 @@ function DashboradLayout(props: IProps) {
             }}
           >
             <div className="left flex items-center justify-start">
-              <Title level={4}>应用名称</Title>
+              <img src={yqLogo} alt="" />
+              <Divider />
+              <Title level={4} className="m-0 ml">
+                {brandName}
+              </Title>
             </div>
           </header>
           <section
@@ -85,7 +90,7 @@ function DashboradLayout(props: IProps) {
             }}
           >
             <div className={`w-[${initialStyle.sidenavWidth}px]`}>sideMenu</div>
-            <div>children</div>
+            <div>{children}</div>
           </section>
         </Flex>
       </Flex>

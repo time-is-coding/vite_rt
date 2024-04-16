@@ -4,12 +4,8 @@ import DashboradLayout from '@/layouts/pc/DashboradLayout';
 
 function Dashboard() {
   return (
-    <DashboradLayout>
-      <>
-        dfsdf
-        {/* <div>{MockApi.CreateUserUserPost.name}</div>
-        <div>{MockApi.CreateUserUserPost.email}</div> */}
-      </>
+    <DashboradLayout brandName="巴啦啦项目">
+      <>这是右边的内容</>
     </DashboradLayout>
   );
 }

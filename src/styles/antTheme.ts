@@ -1,7 +1,7 @@
 import { ThemeConfig, theme } from 'antd';
 
 export default {
-  algorithm: theme.defaultAlgorithm,
+  algorithm: theme.darkAlgorithm,
   token: {
     fontFamily: 'PingFangSC, 微软雅黑, Helvetic',
     colorSuccess: '#15ad2c',

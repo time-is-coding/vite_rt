@@ -8,9 +8,6 @@ import antTheme from './styles/antTheme';
 function App() {
   return (
     <>
-      <span className="iconfont" style={{ visibility: 'hidden', position: 'fixed', top: '-20px' }}>
-        &#xe9bd;
-      </span>
       <StyleProvider hashPriority="high">
         <BrowserRouter>
           <ConfigProvider theme={antTheme} locale={zh_CN}>
