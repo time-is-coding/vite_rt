@@ -1,7 +1,6 @@
-// import { MockApi } from '@/mock/data/test';
-
-import YQlogo from '@/assets/images/logo.png';
-import DashboradLayout from '@/layouts/pc/DashboradLayout';
+import avatarUrl from '@/assets/images/avatar.png';
+import logo from '@/assets/images/logo.png';
+import DashboradLayout, { NavMenu } from '@/layouts/pc/DashboradLayout';
 import {
   DownOutlined,
   LaptopOutlined,
@@ -10,37 +9,24 @@ import {
   SoundOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import { Dropdown, Input, Menu, MenuProps, message } from 'antd';
+import { MenuProps } from 'antd';
+import { SearchProps } from 'antd/es/input/Search';
 import React from 'react';
-
-const { Search } = Input;
 
 const navItems: MenuProps['items'] = [
   {
     key: '1',
-    label: (
-      <a target="_blank" rel="noopener noreferrer" href="">
-        1st menu item
-      </a>
-    ),
+    label: <a>1st menu item</a>,
   },
   {
     key: '2',
-    label: (
-      <a target="_blank" rel="noopener noreferrer" href="">
-        2nd menu item (disabled)
-      </a>
-    ),
+    label: <a>2nd menu item (disabled)</a>,
     icon: <SmileOutlined />,
     disabled: true,
   },
   {
     key: '3',
-    label: (
-      <a target="_blank" rel="noopener noreferrer" href="https://www.luohanacademy.com">
-        3rd menu item (disabled)
-      </a>
-    ),
+    label: <a>3rd menu item (disabled)</a>,
     disabled: true,
   },
   {
@@ -50,29 +36,8 @@ const navItems: MenuProps['items'] = [
   },
 ];
 
-const navMenu = (
-  <Dropdown menu={{ items: navItems }}>
-    <div>
-      Hover me
-      <DownOutlined />
-    </div>
-  </Dropdown>
-);
-const navMenu2 = (
-  <Dropdown menu={{ items: navItems }}>
-    <div>
-      Hover me
-      <DownOutlined />
-    </div>
-  </Dropdown>
-);
 const version = <>version: 巴啦啦版本</>;
-const notice = (
-  <>
-    <SoundOutlined />
-  </>
-);
-const rightInfo = [version, notice];
+const otherInfo = [version];
 
 const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
   (icon, index) => {
@@ -93,34 +58,91 @@ const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOu
     };
   }
 );
-const sidebar = (
-  <Menu
-    mode="inline"
-    defaultSelectedKeys={['1']}
-    defaultOpenKeys={['sub1']}
-    style={{ height: '100%', borderRight: 0 }}
-    items={items2}
-  />
-);
 
-const onSearch = (v: string) => message.success(`搜索的内容是：${v}`);
-const search = (
-  <Search
-    style={{ display: 'flex', alignItems: 'center' }}
-    placeholder="input search text"
-    onSearch={onSearch}
-  />
-);
+const sidebarProps = {
+  defaultSelectedKeys: ['1'],
+  defaultOpenKeys: ['sub1'],
+  items: items2,
+  onClick: (item: any) => {
+    console.log(`这是我给你返回的内容`, item);
+  },
+};
+
+const onSearch = (v: string) => console.log(`搜索的内容是：${v}`);
+
+const searchProps: SearchProps = {
+  placeholder: '这是描述',
+  // disabled: true,
+  onSearch,
+};
+
+const navMenu: NavMenu = {
+  type: 'dropdown',
+  selectProps: {
+    defaultValue: 'jack',
+    options: [
+      { value: 'jack', label: 'Jack' },
+      { value: 'lucy', label: 'Lucy' },
+      { value: 'Yiminghe', label: 'yiminghe' },
+      { value: 'disabled', label: 'Disabled', disabled: true },
+    ],
+  },
+  headerDropdowns: [
+    {
+      text: '下拉菜单1',
+      menu: { items: navItems },
+      icon: <DownOutlined />,
+    },
+    {
+      text: '下拉菜单2',
+      menu: { items: navItems },
+      icon: <DownOutlined />,
+    },
+  ],
+};
+
+const notice = {
+  onClick: (item: any) => console.log('你点击的是', item),
+  value: [
+    {
+      key: '通知1',
+      text: '这是第一条通知',
+      icon: <SoundOutlined />,
+    },
+    {
+      key: '通知2',
+      text: '这是第二条通知',
+    },
+  ],
+};
+
+const avatar = {
+  url: avatarUrl,
+  onClick: (item: any) => console.log('你点击的是', item),
+  value: [
+    {
+      key: '通知1',
+      text: '我的',
+      icon: <SoundOutlined />,
+    },
+    {
+      key: '通知2',
+      text: '设置',
+    },
+  ],
+};
 
 function Dashboard() {
   return (
     <DashboradLayout
       brandName="巴啦啦项目"
-      navMenu={<>{[navMenu, navMenu2].map((i) => i)}</>}
-      logo={YQlogo}
-      rightInfo={<>{rightInfo.map((i) => i)}</>}
-      sidebar={sidebar}
-      searchBar={search}
+      navMenu={navMenu}
+      logo={logo}
+      sidebarProps={sidebarProps}
+      searchProps={searchProps}
+      notice={notice}
+      otherInfo={otherInfo}
+      avatar={avatar}
     >
       <>这是主体内容</>
     </DashboradLayout>
