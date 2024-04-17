@@ -4,6 +4,7 @@ import {
   Divider,
   Dropdown,
   DropdownProps,
+  Flex,
   Input,
   Layout,
   Menu,
@@ -179,20 +180,26 @@ function DashboradLayout(props: IProps) {
       }}
     >
       <Layout
-        className="!font-sans"
         style={{
           minHeight: '100vh',
           minWidth: '1200px',
         }}
       >
-        <Header className="flex px-[20px] items-center justify-between">
-          <div className="left flex items-center justify-start">
+        <Header
+          style={{
+            display: 'flex',
+            padding: '0 20px',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Flex align="center" justify="start">
             {logo && (
               <img src={logo} alt="" width={80} height={32} style={{ objectFit: 'cover' }} />
             )}
             <Divider type="vertical" />
             {brandName && (
-              <Title level={4} className="m-0 mr-4">
+              <Title level={4} style={{ margin: '0 16px 0 0' }}>
                 {brandName}
               </Title>
             )}
@@ -204,7 +211,7 @@ function DashboradLayout(props: IProps) {
                     navMenu.selectProps?.defaultValue || (navMenu.selectProps?.options || [])[0]
                   }
                   mode={undefined}
-                  className="w-[240px]"
+                  style={{ width: '240px' }}
                 />
               )}
               {navMenu?.type === 'dropdown' &&
@@ -217,8 +224,8 @@ function DashboradLayout(props: IProps) {
                   </Dropdown>
                 ))}
             </Space>
-          </div>
-          <div className="right flex items-center justify-start">
+          </Flex>
+          <Flex align="center" justify="start">
             <Space>
               {searchProps && (
                 <Search {...searchProps} style={{ display: 'flex', alignItems: 'center' }} />
@@ -263,7 +270,7 @@ function DashboradLayout(props: IProps) {
                 </div>
               )}
             </Space>
-          </div>
+          </Flex>
         </Header>
         <Layout>
           <Sider
