@@ -12,18 +12,26 @@ interface IStyle {
 interface IProps {
   children?: ReactNode;
   classname?: string;
-  navMenu?: ReactNode[];
+  navMenu?: ReactNode;
   logo?: string;
   brandName?: string;
   sidebar?: any;
   mode?: 'dark' | 'light';
   style?: IStyle;
   searchBar?: ReactNode;
-  rightInfo?: ReactNode[];
+  rightInfo?: ReactNode;
 }
 
 function DashboradLayout(props: IProps) {
-  const { children, brandName = '', navMenu = [], logo, rightInfo = [], sidebar } = props;
+  const {
+    children,
+    searchBar = <></>,
+    brandName = '',
+    navMenu = <></>,
+    logo,
+    rightInfo = <></>,
+    sidebar,
+  } = props;
 
   const [collapsed, setCollapsed] = useState(false);
 
@@ -61,10 +69,13 @@ function DashboradLayout(props: IProps) {
             <Title level={4} className="m-0 mr-4">
               {brandName}
             </Title>
-            <Space>{navMenu.map((i) => i)}</Space>
+            <Space>{navMenu}</Space>
           </div>
           <div className="right flex items-center justify-start">
-            <Space>{rightInfo.map((i) => i)}</Space>
+            <Space>
+              {searchBar}
+              {rightInfo}
+            </Space>
           </div>
         </Header>
         <Layout>

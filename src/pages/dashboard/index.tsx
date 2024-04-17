@@ -10,14 +10,16 @@ import {
   SoundOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import { Dropdown, Menu, MenuProps } from 'antd';
+import { Dropdown, Input, Menu, MenuProps, message } from 'antd';
 import React from 'react';
+
+const { Search } = Input;
 
 const navItems: MenuProps['items'] = [
   {
     key: '1',
     label: (
-      <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
+      <a target="_blank" rel="noopener noreferrer" href="">
         1st menu item
       </a>
     ),
@@ -25,7 +27,7 @@ const navItems: MenuProps['items'] = [
   {
     key: '2',
     label: (
-      <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
+      <a target="_blank" rel="noopener noreferrer" href="">
         2nd menu item (disabled)
       </a>
     ),
@@ -101,14 +103,24 @@ const sidebar = (
   />
 );
 
+const onSearch = (v: string) => message.success(`搜索的内容是：${v}`);
+const search = (
+  <Search
+    style={{ display: 'flex', alignItems: 'center' }}
+    placeholder="input search text"
+    onSearch={onSearch}
+  />
+);
+
 function Dashboard() {
   return (
     <DashboradLayout
       brandName="巴啦啦项目"
-      navMenu={[navMenu, navMenu2]}
+      navMenu={<>{[navMenu, navMenu2].map((i) => i)}</>}
       logo={YQlogo}
-      rightInfo={rightInfo}
+      rightInfo={<>{rightInfo.map((i) => i)}</>}
       sidebar={sidebar}
+      searchBar={search}
     >
       <>这是主体内容</>
     </DashboradLayout>
