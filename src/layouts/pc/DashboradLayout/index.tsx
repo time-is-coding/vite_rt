@@ -12,7 +12,7 @@ import {
 
 import { SearchProps } from 'antd/es/input';
 import React, { ReactNode } from 'react';
-import { initJson } from '../initJson';
+import { initJson } from './initJson';
 
 const { Header, Content } = Layout;
 
