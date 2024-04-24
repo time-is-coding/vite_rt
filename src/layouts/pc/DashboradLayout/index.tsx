@@ -1,27 +1,23 @@
 import {
-  Badge,
   ConfigProvider,
   Divider,
-  Dropdown,
   DropdownProps,
   Flex,
-  Input,
   Layout,
-  Menu,
   MenuProps,
-  Select,
   SelectProps,
   Space,
-  Typography,
   theme,
 } from 'antd';
 
-import { MenuUnfoldOutlined, SoundOutlined } from '@ant-design/icons';
 import { SearchProps } from 'antd/es/input';
-import { ReactNode, useMemo, useState } from 'react';
-const { Header, Sider, Content } = Layout;
-const { Title } = Typography;
-const { Search } = Input;
+import React, { ReactNode } from 'react';
+import { initJson } from '../initJson';
+
+const { Header, Content } = Layout;
+
+const initObj = JSON.parse(initJson);
+
 interface IStyle {
   navHeight: number;
   themeColor: string;
@@ -48,6 +44,12 @@ export interface NoticeProps {
   icon?: ReactNode;
 }
 
+export interface JsonComponentItem {
+  system_components_name: string;
+  system_key: string;
+  system_show: boolean;
+}
+
 interface IProps {
   children?: ReactNode;
   navMenu?: NavMenu;
@@ -57,16 +59,13 @@ interface IProps {
   mode?: 'dark' | 'light';
   style?: IStyle;
   searchProps?: SearchProps;
-  notice?: {
-    onClick: (item: any) => void;
-    value?: NoticeProps[];
-  };
+  notice?: NoticeProps[];
   avatar?: {
     url: string;
-    onClick?: (item: any) => void;
     value?: NoticeProps[];
   };
   otherInfo?: ReactNode[];
+  handleEvent: (type: string, title: string, data?: any) => any;
 }
 
 function DashboradLayout(props: IProps) {
@@ -80,105 +79,42 @@ function DashboradLayout(props: IProps) {
     notice,
     otherInfo,
     avatar,
+    handleEvent,
   } = props;
 
+  const propsObj: any = {
+    BrandName: { props: brandName, propName: 'brandName' },
+    Avatar: { props: avatar, propName: 'avatar' },
+    Logo: { props: logo, propName: 'logo' },
+    SiderBar: { props: sidebarProps, propName: 'sidebarProps' },
+    Notice: { props: notice, propName: 'notice' },
+    OtherInfo: { props: otherInfo, propName: 'otherInfo' },
+    SearchBar: { props: searchProps, propName: 'searchProps' },
+    NavBar: { props: navMenu, propName: 'navMenu' },
+  };
+
+  const { style, showComponents }: { style: any; showComponents: JsonComponentItem[] } = initObj;
+
   const {
-    token: { colorBgContainer, padding },
+    token: { padding },
   } = theme.useToken();
 
-  const [collapsed, setCollapsed] = useState(false);
+  const renderCompont = (name: string) => {
+    const show = showComponents.filter((i) => i.system_components_name === name)[0]?.system_show;
+    if (!show) return <></>;
 
-  const handleNoticeClick = (value: { key: string | number; text: string }) => {
-    notice && notice.onClick(value);
-  };
-  const noticeDropDownProps = useMemo(() => {
-    if (!notice || !notice.value) return [];
-    return {
-      menu: {
-        items: notice.value.map((i) => ({
-          key: i.key,
-          label: <div onClick={() => handleNoticeClick(i)}>{i.text}</div>,
-          icon: i?.icon,
-        })),
-      },
-    };
-  }, [notice]);
-  const avatarDropDownProps = useMemo(() => {
-    if (!avatar || !avatar.value) return [];
-    return {
-      menu: {
-        items: avatar.value.map((i) => ({
-          key: i.key,
-          label: <div onClick={() => handleNoticeClick(i)}>{i.text}</div>,
-          icon: i?.icon,
-        })),
-      },
-    };
-  }, [avatar]);
-  const trigger = useMemo(() => {
-    return collapsed ? (
-      <>
-        <MenuUnfoldOutlined rotate={180} />
-      </>
-    ) : (
-      <div>
-        点击收起菜单&nbsp;&nbsp;
-        <MenuUnfoldOutlined />
-      </div>
+    const LazyComponent = React.lazy(() => import(`./components/${name}`));
+    const curProps: any = {};
+    curProps[propsObj[name].propName] = propsObj[name].props;
+    return (
+      <React.Suspense fallback={<></>}>
+        {React.createElement(LazyComponent, { ...curProps, handleEvent: handleEvent })}
+      </React.Suspense>
     );
-  }, [collapsed]);
+  };
 
   return (
-    <ConfigProvider
-      theme={{
-        token: {
-          colorBorder: '#04336b',
-          colorText: '#232111',
-          colorTextDisabled: '#999',
-          colorTextPlaceholder: '#999',
-          colorBgContainerDisabled: '#666',
-          colorBgBase: 'rgb(4, 51, 107)',
-        },
-        components: {
-          Typography: {
-            titleMarginBottom: 0,
-            titleMarginTop: 0,
-            colorTextHeading: '#fff',
-            fontWeightStrong: 400,
-          },
-          Divider: {
-            colorSplit: '#fff',
-          },
-          Select: {
-            selectorBg: '#00004d',
-            colorText: '#fff',
-            optionActiveBg: '#00004d',
-            optionSelectedBg: '#00004d',
-            optionSelectedColor: '#fff',
-          },
-          Input: {
-            addonBg: '#00004d',
-            colorBgContainer: '#00004d',
-            colorText: '#fff',
-            hoverBorderColor: '#04336b',
-          },
-          Button: {
-            defaultBg: '#00004d',
-            defaultColor: '#fff',
-            colorText: '#fff',
-            defaultActiveBg: '#00004d',
-            colorIcon: '#fff',
-            defaultHoverBg: '#00004d',
-          },
-          Dropdown: {
-            colorText: '#fff',
-          },
-          Badge: {
-            colorText: '#fff',
-          },
-        },
-      }}
-    >
+    <ConfigProvider theme={style}>
       <Layout
         style={{
           minHeight: '100vh',
@@ -194,105 +130,27 @@ function DashboradLayout(props: IProps) {
           }}
         >
           <Flex align="center" justify="start">
-            {logo && (
-              <img src={logo} alt="" width={80} height={32} style={{ objectFit: 'cover' }} />
-            )}
+            {renderCompont('Logo')}
             <Divider type="vertical" />
-            {brandName && (
-              <Title level={4} style={{ margin: '0 16px 0 0' }}>
-                {brandName}
-              </Title>
-            )}
-            <Space>
-              {navMenu?.type === 'select' && (
-                <Select
-                  {...navMenu.selectProps}
-                  defaultValue={
-                    navMenu.selectProps?.defaultValue || (navMenu.selectProps?.options || [])[0]
-                  }
-                  mode={undefined}
-                  style={{ width: '240px' }}
-                />
-              )}
-              {navMenu?.type === 'dropdown' &&
-                navMenu?.headerDropdowns?.map((i) => (
-                  <Dropdown key={i.text} {...i}>
-                    <div>
-                      {i.text}
-                      {i.icon}
-                    </div>
-                  </Dropdown>
-                ))}
-            </Space>
+            {renderCompont('BrandName')}
+            {renderCompont('NavBar')}
           </Flex>
           <Flex align="center" justify="start">
             <Space>
-              {searchProps && (
-                <Search {...searchProps} style={{ display: 'flex', alignItems: 'center' }} />
-              )}
-              {otherInfo && otherInfo.map((i, index) => <div key={index}>{i}</div>)}
-              {notice && notice?.value && (
-                <Dropdown {...noticeDropDownProps}>
-                  <Badge count={notice.value.length} size="small">
-                    <SoundOutlined />
-                  </Badge>
-                </Dropdown>
-              )}
-              {notice && !notice?.value && <SoundOutlined />}
-              {avatar && avatar?.value && (
-                <Dropdown {...avatarDropDownProps}>
-                  <div
-                    style={{ display: 'flex', alignItems: 'center' }}
-                    onClick={() => avatar?.onClick && avatar?.onClick('')}
-                  >
-                    <img
-                      src={avatar.url}
-                      alt=""
-                      width={30}
-                      height={30}
-                      style={{ borderRadius: '50%', objectFit: 'cover' }}
-                    />
-                  </div>
-                </Dropdown>
-              )}
-              {avatar && !avatar?.value && (
-                <div
-                  style={{ display: 'flex', alignItems: 'center' }}
-                  onClick={() => avatar?.onClick && avatar?.onClick('')}
-                >
-                  <img
-                    src={avatar.url}
-                    alt=""
-                    width={30}
-                    height={30}
-                    style={{ borderRadius: '50%', objectFit: 'cover' }}
-                  />
-                </div>
-              )}
+              {renderCompont('SearchBar')}
+              {renderCompont('OtherInfo')}
+              {renderCompont('Notice')}
+              {renderCompont('Avatar')}
             </Space>
           </Flex>
         </Header>
         <Layout>
-          <Sider
-            style={{ background: colorBgContainer }}
-            collapsible
-            collapsed={collapsed}
-            onCollapse={(value) => setCollapsed(value)}
-            trigger={trigger}
-          >
-            {sidebarProps && (
-              <Menu
-                {...sidebarProps}
-                style={{ height: '100%', borderRight: 0 }}
-                mode="inline"
-                multiple={false}
-              />
-            )}
-          </Sider>
+          {renderCompont('SiderBar')}
           <Content
             style={{
-              padding: padding,
-              minHeight: 280,
+              padding: padding || '20px',
+              minHeight: '500px',
+              overflow: 'auto',
             }}
           >
             {children}

@@ -14,9 +14,9 @@ export default {
     colorText: '#232111',
     colorTextSecondary: '#555555',
     colorTextTertiary: '#999999',
-    colorBorder: '#e6e6e6',
+    // colorBorder: '#e6e6e6',
     colorBgContainer: '#fff',
-    colorBgBase: '#f6f6f6',
+    // colorBgBase: '#f6f6f6',
     colorBgLayout: '#e6e6e6',
   },
   components: {

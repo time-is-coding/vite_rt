@@ -63,9 +63,6 @@ const sidebarProps = {
   defaultSelectedKeys: ['1'],
   defaultOpenKeys: ['sub1'],
   items: items2,
-  onClick: (item: any) => {
-    console.log(`这是我给你返回的内容`, item);
-  },
 };
 
 const onSearch = (v: string) => console.log(`搜索的内容是：${v}`);
@@ -77,7 +74,7 @@ const searchProps: SearchProps = {
 };
 
 const navMenu: NavMenu = {
-  type: 'dropdown',
+  type: 'select',
   selectProps: {
     defaultValue: 'jack',
     options: [
@@ -101,20 +98,17 @@ const navMenu: NavMenu = {
   ],
 };
 
-const notice = {
-  onClick: (item: any) => console.log('你点击的是', item),
-  value: [
-    {
-      key: '通知1',
-      text: '这是第一条通知',
-      icon: <SoundOutlined />,
-    },
-    {
-      key: '通知2',
-      text: '这是第二条通知',
-    },
-  ],
-};
+const notice = [
+  {
+    key: '通知1',
+    text: '这是第一条通知',
+    icon: <SoundOutlined />,
+  },
+  {
+    key: '通知2',
+    text: '这是第二条通知',
+  },
+];
 
 const avatar = {
   url: avatarUrl,
@@ -132,6 +126,10 @@ const avatar = {
   ],
 };
 
+const handleEvent = (type: string, name: string, data?: any): any => {
+  console.log(type, name, data);
+};
+
 function Dashboard() {
   return (
     <DashboradLayout
@@ -143,6 +141,7 @@ function Dashboard() {
       notice={notice}
       otherInfo={otherInfo}
       avatar={avatar}
+      handleEvent={handleEvent}
     >
       <>这是主体内容</>
     </DashboradLayout>
