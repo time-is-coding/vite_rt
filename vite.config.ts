@@ -1,10 +1,10 @@
 /// <reference types="vitest" />
-import { defineConfig } from 'vite';
+import mdx from '@mdx-js/rollup';
+import resolve from '@rollup/plugin-node-resolve';
 import react from '@vitejs/plugin-react';
 import path from 'path';
-import mdx from '@mdx-js/rollup';
+import { defineConfig } from 'vite';
 import commonjs from 'vite-plugin-commonjs';
-import resolve from '@rollup/plugin-node-resolve';
 import viteCompression from 'vite-plugin-compression';
 const mdx_options = {
   // See https://mdxjs.com/advanced/plugins
