@@ -1,5 +1,4 @@
 import { RootRouter } from '@/router';
-import { StyleProvider } from '@ant-design/cssinjs';
 import { ConfigProvider } from 'antd';
 import zh_CN from 'antd/es/locale/zh_CN';
 import { BrowserRouter } from 'react-router-dom';
@@ -14,13 +13,13 @@ const theme = {
 function App() {
   return (
     <>
-      <StyleProvider hashPriority="high">
-        <BrowserRouter>
-          <ConfigProvider theme={theme.light} locale={zh_CN}>
-            <RootRouter />
-          </ConfigProvider>
-        </BrowserRouter>
-      </StyleProvider>
+      {/* <StyleProvider hashPriority="high"> */}
+      <BrowserRouter>
+        <ConfigProvider theme={theme.light} locale={zh_CN}>
+          <RootRouter />
+        </ConfigProvider>
+      </BrowserRouter>
+      {/* </StyleProvider> */}
     </>
   );
 }
